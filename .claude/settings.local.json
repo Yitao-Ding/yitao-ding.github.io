@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(open:*)",
+      "Bash(mv \"kodama.jpeg\" \"hero_01.jpg\")",
+      "Bash(mv \"Sony-0035.jpg\" \"hero_02.jpg\")",
+      "Bash(mv \"Sony-0151.jpeg\" \"hero_03.jpg\")",
+      "Bash(mv \"Sony-0158.jpg\" \"hero_04.jpg\")",
+      "Bash(mv \"Sony-0168.jpg\" \"hero_05.jpg\")",
+      "Bash(git config:*)"
+    ]
+  }
+}
