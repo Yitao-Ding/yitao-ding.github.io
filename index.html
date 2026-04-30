@@ -109,6 +109,14 @@
       opacity: 1;
     }
 
+    .hero-slideshow .slide video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
     /* 暗幕オーバーレイ — テキストを読みやすくする */
     .hero-slideshow::after {
       content: '';
@@ -796,34 +804,74 @@
         : 'linear-gradient(to bottom, rgba(10,10,10,0.95) 0%, transparent 100%)';
     });
 
-    // Hero slideshow
-    // src: 画像パス / pos: background-position（顔が被らないよう各自調整）
-    const slideImages = [
-      { src: 'images/web/hero_01.jpg', pos: 'center 70%' },
-      { src: 'images/web/hero_02.jpg', pos: 'center 70%' },
-      { src: 'images/web/hero_03.jpg', pos: 'center 70%' },
-      { src: 'images/web/hero_04.jpg', pos: 'center 70%' },
-      { src: 'images/web/hero_05.jpg', pos: 'center 70%' },
-      { src: 'images/web/hero_06.jpg', pos: 'center 70%' },
-      { src: 'images/web/hero_07.jpg', pos: 'center 70%' },
+    // Hero slideshow — videos first, then photos
+    const slideData = [
+      { type: 'video', src: 'videos/hero_video_01.mp4' },
+      { type: 'video', src: 'videos/hero_video_02.mp4' },
+      { type: 'image', src: 'images/web/hero_01.jpg', pos: 'center 70%' },
+      { type: 'image', src: 'images/web/hero_02.jpg', pos: 'center 70%' },
+      { type: 'image', src: 'images/web/hero_03.jpg', pos: 'center 70%' },
+      { type: 'image', src: 'images/web/hero_04.jpg', pos: 'center 70%' },
     ];
 
     const slideshow = document.getElementById('heroSlideshow');
-    const slides = slideImages.map(({ src, pos }, i) => {
-      const div = document.createElement('div');
-      div.className = 'slide' + (i === 0 ? ' active' : '');
-      div.style.backgroundImage = `url("${src.replace(/"/g, '\\"')}")`;
-      div.style.backgroundPosition = pos;
-      slideshow.appendChild(div);
-      return div;
+    const slides = slideData.map(({ type, src, pos }, i) => {
+      if (type === 'video') {
+        const div = document.createElement('div');
+        div.className = 'slide' + (i === 0 ? ' active' : '');
+        const video = document.createElement('video');
+        video.src = src;
+        video.muted = true;
+        video.playsInline = true;
+        video.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;';
+        div.appendChild(video);
+        div.dataset.type = 'video';
+        div._video = video;
+        slideshow.appendChild(div);
+        return div;
+      } else {
+        const div = document.createElement('div');
+        div.className = 'slide' + (i === 0 ? ' active' : '');
+        div.style.backgroundImage = `url("${src.replace(/"/g, '\\"')}")`;
+        div.style.backgroundPosition = pos;
+        div.dataset.type = 'image';
+        slideshow.appendChild(div);
+        return div;
+      }
     });
 
+    const IMAGE_DURATION = 4000;
     let current = 0;
-    setInterval(() => {
+    let timer = null;
+
+    function goNext() {
       slides[current].classList.remove('active');
+      if (slides[current].dataset.type === 'video') {
+        slides[current]._video.pause();
+        slides[current]._video.currentTime = 0;
+      }
       current = (current + 1) % slides.length;
-      slides[current].classList.add('active');
-    }, 4000); // 4秒ごとに切り替え
+      showCurrent();
+    }
+
+    function showCurrent() {
+      const slide = slides[current];
+      slide.classList.add('active');
+      if (slide.dataset.type === 'video') {
+        const video = slide._video;
+        video.currentTime = 0;
+        video.play();
+        video.onended = goNext;
+        // フォールバック: 動画が終わらない場合は5秒で切り替え
+        timer = setTimeout(goNext, 5000);
+        video.onended = () => { clearTimeout(timer); goNext(); };
+      } else {
+        timer = setTimeout(goNext, IMAGE_DURATION);
+      }
+    }
+
+    // 最初のスライドを開始
+    showCurrent();
   </script>
 
 </body>
