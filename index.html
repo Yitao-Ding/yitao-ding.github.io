@@ -864,22 +864,28 @@
     });
 
     const IMAGE_DURATION = 4000;
-    const FADE_DURATION = 1500; // CSSのtransitionと合わせる(ms)
-    const FADE_BEFORE = 1.5;    // 動画終了の何秒前からフェードを開始するか
+    const FADE_DURATION = 1500;
+    const FADE_BEFORE = 1.0; // 動画終了の何秒前からフェードを開始するか
     let current = 0;
     let timer = null;
+    let timeUpdateHandler = null;
 
     function goNext() {
       clearTimeout(timer);
       const prevSlide = slides[current];
-      prevSlide.classList.remove('active');
-      // フェード完了後に動画を止める
-      if (prevSlide.dataset.type === 'video') {
-        setTimeout(() => {
-          prevSlide._video.pause();
-          prevSlide._video.currentTime = 0;
-        }, FADE_DURATION);
+
+      // 前の動画のtimeupdateリスナーを確実に削除
+      if (prevSlide.dataset.type === 'video' && timeUpdateHandler) {
+        prevSlide._video.removeEventListener('timeupdate', timeUpdateHandler);
+        timeUpdateHandler = null;
       }
+
+      prevSlide.classList.remove('active');
+      if (prevSlide.dataset.type === 'video') {
+        const v = prevSlide._video;
+        setTimeout(() => { v.pause(); v.currentTime = 0; }, FADE_DURATION);
+      }
+
       current = (current + 1) % slides.length;
       showCurrent();
     }
@@ -887,25 +893,24 @@
     function showCurrent() {
       const slide = slides[current];
       slide.classList.add('active');
+
       if (slide.dataset.type === 'video') {
         const video = slide._video;
         video.currentTime = 0;
         video.play();
 
-        // 動画終了のFADE_BEFORE秒前にフェード開始
-        const onTimeUpdate = () => {
-          if (video.duration && video.currentTime >= video.duration - FADE_BEFORE) {
-            video.removeEventListener('timeupdate', onTimeUpdate);
+        timeUpdateHandler = () => {
+          if (!video.duration) return;
+          // 動画が短い場合はFADE_BEFOREを動画尺の30%に制限
+          const fadeBefore = Math.min(FADE_BEFORE, video.duration * 0.3);
+          if (video.currentTime >= video.duration - fadeBefore) {
             goNext();
           }
         };
-        video.addEventListener('timeupdate', onTimeUpdate);
+        video.addEventListener('timeupdate', timeUpdateHandler);
 
-        // フォールバック: durationが取れない場合は10秒で切り替え
-        timer = setTimeout(() => {
-          video.removeEventListener('timeupdate', onTimeUpdate);
-          goNext();
-        }, 10000);
+        // フォールバック
+        timer = setTimeout(goNext, (video.duration || 10) * 1000 + 500);
       } else {
         timer = setTimeout(goNext, IMAGE_DURATION);
       }
