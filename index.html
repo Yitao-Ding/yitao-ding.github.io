@@ -291,16 +291,18 @@
       margin-bottom: 0;
     }
 
-    .works-filter {
+    /* ─── WORKS FILTERS ─── */
+    .works-filters {
       display: flex;
       gap: 8px;
+      flex-wrap: wrap;
     }
 
-    .filter-btn {
+    .filter-tab {
       background: none;
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-      padding: 8px 18px;
+      border: 1px solid #333;
+      color: #6b6b6b;
+      padding: 8px 20px;
       font-size: 0.72rem;
       letter-spacing: 0.12em;
       text-transform: uppercase;
@@ -309,102 +311,239 @@
       font-family: inherit;
     }
 
-    .filter-btn.active,
-    .filter-btn:hover {
+    .filter-tab:hover {
+      border-color: rgba(200, 169, 110, 0.5);
+      color: var(--text);
+    }
+
+    .filter-tab.active {
       border-color: var(--accent);
       color: var(--accent);
+      background: rgba(200, 169, 110, 0.1);
     }
 
-    .gallery {
+    /* ─── WORKS GRID ─── */
+    .works-grid {
       display: grid;
       grid-template-columns: repeat(12, 1fr);
-      grid-template-rows: auto;
-      gap: 12px;
+      gap: 20px;
     }
 
-    /* Gallery layout — replace src with your own images */
-    .gallery-item {
+    .work-item { cursor: pointer; }
+    .work-item.large  { grid-column: span 7; }
+    .work-item.medium { grid-column: span 5; }
+    .work-item.small  { grid-column: span 4; }
+
+    .work-thumb {
       position: relative;
       overflow: hidden;
       background: var(--border);
-      cursor: pointer;
     }
 
-    .gallery-item:nth-child(1) { grid-column: span 5; grid-row: span 2; }
-    .gallery-item:nth-child(2) { grid-column: span 4; }
-    .gallery-item:nth-child(3) { grid-column: span 3; }
-    .gallery-item:nth-child(4) { grid-column: span 4; }
-    .gallery-item:nth-child(5) { grid-column: span 3; }
-    .gallery-item:nth-child(6) { grid-column: span 4; }
-    .gallery-item:nth-child(7) { grid-column: span 5; }
-    .gallery-item:nth-child(8) { grid-column: span 3; }
+    .work-thumb.large  { aspect-ratio: 16/10; }
+    .work-thumb.medium { aspect-ratio: 4/5; }
+    .work-thumb.small  { aspect-ratio: 1/1; }
 
-    .gallery-item img {
+    .work-thumb img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
-      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      /* ↓ プレースホルダーの最小高さ。実際の画像に差し替えたら不要 */
-      min-height: 260px;
+      transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
-    .gallery-item:hover img {
-      transform: scale(1.06);
-    }
+    .work-item:hover .work-thumb img { transform: scale(1.05); }
 
-    .gallery-overlay {
+    .work-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 50%);
+      background: rgba(10, 10, 10, 0.6);
       opacity: 0;
-      transition: opacity 0.35s;
+      transition: opacity 0.5s;
       display: flex;
-      align-items: flex-end;
-      padding: 20px;
-    }
-
-    .gallery-item:hover .gallery-overlay {
-      opacity: 1;
-    }
-
-    .gallery-caption {
-      font-size: 0.8rem;
-      letter-spacing: 0.06em;
-      color: #fff;
-    }
-
-    .gallery-caption span {
-      display: block;
-      font-size: 0.68rem;
-      color: var(--accent);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      margin-bottom: 4px;
-    }
-
-    /* Placeholder style */
-    .placeholder {
-      width: 100%;
-      min-height: 260px;
-      background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
-      display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      color: var(--text-muted);
+      flex-direction: column;
+      gap: 12px;
     }
 
-    .placeholder svg {
-      opacity: 0.3;
+    .work-item:hover .work-overlay { opacity: 1; }
+
+    .play-icon {
+      width: 56px;
+      height: 56px;
+      border: 1px solid rgba(200, 169, 110, 0.8);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      opacity: 0;
+      transition: opacity 0.3s;
     }
 
-    .placeholder-label {
-      font-size: 0.68rem;
-      letter-spacing: 0.15em;
+    .work-item:hover .play-icon { opacity: 1; }
+
+    .play-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
-      opacity: 0.5;
+      color: var(--accent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .work-item:hover .play-label { opacity: 1; }
+
+    .category-badge {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(10, 10, 10, 0.8);
+      padding: 4px 10px;
+      border: 1px solid rgba(200, 169, 110, 0.3);
+    }
+
+    .gold-corner {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      width: 24px;
+      height: 24px;
+      border-right: 1px solid var(--accent);
+      border-bottom: 1px solid var(--accent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .work-item:hover .gold-corner { opacity: 1; }
+
+    .work-meta {
+      padding: 14px 0 6px;
+    }
+
+    .work-meta-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: 0.02em;
+      margin-bottom: 4px;
+      transition: color 0.3s;
+    }
+
+    .work-item:hover .work-meta-title { color: var(--accent); }
+
+    .work-meta-sub {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+    }
+
+    /* ─── MODAL ─── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(10, 10, 10, 0.92);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s;
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal-content {
+      position: relative;
+      width: 100%;
+      max-width: 900px;
+      margin: 0 16px;
+      background: #141414;
+      border: 1px solid rgba(200, 169, 110, 0.2);
+      max-height: 92vh;
+      overflow-y: auto;
+      transform: translateY(40px);
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .modal-overlay.open .modal-content {
+      transform: translateY(0);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      z-index: 10;
+      background: rgba(10, 10, 10, 0.8);
+      border: 1px solid var(--border);
+      color: var(--text);
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: border-color 0.25s, color 0.25s;
+      font-family: inherit;
+    }
+
+    .modal-close:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16/9;
+    }
+
+    .video-wrapper iframe,
+    .video-wrapper img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border: none;
+    }
+
+    .modal-meta {
+      padding: 24px 32px 32px;
+    }
+
+    .modal-meta h3 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #fff;
+      margin: 12px 0 8px;
+      letter-spacing: -0.01em;
+    }
+
+    .modal-meta .meta-client {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      letter-spacing: 0.06em;
+    }
+
+    .modal-meta .meta-desc {
+      font-size: 0.88rem;
+      color: var(--text-dim);
+      line-height: 1.9;
     }
 
     /* ─── ABOUT ─── */
@@ -607,14 +746,11 @@
 
       .works-header { flex-direction: column; align-items: flex-start; gap: 24px; }
 
-      .gallery {
-        grid-template-columns: 1fr 1fr;
-      }
-      .gallery-item:nth-child(n) {
-        grid-column: span 1;
-        grid-row: span 1;
-      }
-      .gallery-item:nth-child(1) { grid-column: span 2; }
+      .work-item.large,
+      .work-item.medium,
+      .work-item.small { grid-column: span 12; }
+      .work-thumb.medium { aspect-ratio: 3/2; }
+      .work-thumb.small  { aspect-ratio: 3/2; }
 
       #about {
         grid-template-columns: 1fr;
@@ -627,8 +763,7 @@
     @media (max-width: 600px) {
       .nav-links { display: none; }
       h1 { font-size: 3rem; }
-      .gallery { grid-template-columns: 1fr; }
-      .gallery-item:nth-child(n) { grid-column: span 1; }
+      .modal-meta { padding: 20px; }
       .contact-links { flex-direction: column; align-items: center; }
     }
   </style>
@@ -679,37 +814,17 @@
   <section id="works">
     <div class="works-header">
       <div>
-        <p class="section-label">Portfolio</p>
-        <h2>Works</h2>
+        <p class="section-label works-title-line">Portfolio</p>
+        <h2 class="works-title-line">Works</h2>
       </div>
-      <div class="works-filter">
-        <button class="filter-btn active">All</button>
-        <button class="filter-btn">Photo</button>
-        <button class="filter-btn">Video</button>
-      </div>
-    </div>
-
-    <div class="gallery">
-      <div class="gallery-item">
-        <img src="images/web/work_02.jpg" alt="Work 02">
-        <div class="gallery-overlay"><div class="gallery-caption"><span>Dance</span>Work 02</div></div>
-      </div>
-
-      <div class="gallery-item">
-        <img src="images/web/work_04.jpg" alt="Work 04">
-        <div class="gallery-overlay"><div class="gallery-caption"><span>Dance</span>Work 04</div></div>
-      </div>
-
-      <div class="gallery-item">
-        <img src="images/web/work_12.jpg" alt="Work 12">
-        <div class="gallery-overlay"><div class="gallery-caption"><span>Dance</span>Work 12</div></div>
-      </div>
-
-<div class="gallery-item">
-        <img src="images/web/work_08.jpg" alt="Work 08">
-        <div class="gallery-overlay"><div class="gallery-caption"><span>Dance</span>Work 08</div></div>
+      <div class="works-filters" id="worksFilters">
+        <button class="filter-tab active" data-category="All">All</button>
+        <button class="filter-tab" data-category="Music Video">Music Video</button>
+        <button class="filter-tab" data-category="Artist Photo">Artist Photo</button>
+        <button class="filter-tab" data-category="Documentary">Documentary</button>
       </div>
     </div>
+    <div class="works-grid" id="worksGrid"></div>
   </section>
 
   <!-- ABOUT -->
@@ -778,20 +893,191 @@
     </div>
   </section>
 
+  <!-- WORK MODAL -->
+  <div class="modal-overlay" id="workModal" role="dialog" aria-modal="true">
+    <div class="modal-content" id="modalContent">
+      <button class="modal-close" id="modalClose">✕</button>
+      <div id="modalMedia"></div>
+      <div class="modal-meta">
+        <span class="section-label" id="modalCategory"></span>
+        <h3 id="modalTitle"></h3>
+        <p class="meta-client" id="modalClient"></p>
+        <p class="meta-desc" id="modalDescription"></p>
+      </div>
+    </div>
+  </div>
+
   <!-- FOOTER -->
   <footer>
     <span class="footer-logo">Yitao</span>
     <span class="footer-copy">&copy; 2026 Yitao. All rights reserved.</span>
   </footer>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script>
-    // Filter buttons (visual only — JS filter logic can be added when real images are set)
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
+    // ─── WORKS DATA ───
+    const WORKS = [
+      {
+        id: 'hime-mv-01',
+        title: 'Hi, Me:) — Performance Film',
+        category: 'Music Video',
+        client: 'Hi, Me:)',
+        year: '2023',
+        thumbnail: 'images/web/work_02.jpg',
+        youtubeId: '',
+        description: 'ライブパフォーマンスの映像記録。Sony FX30 + DJI RS5使用。',
+        size: 'medium',
+      },
+      {
+        id: 'artist-photo-01',
+        title: 'Artist Portrait Series',
+        category: 'Artist Photo',
+        client: 'Hi, Me:) Members',
+        year: '2024',
+        thumbnail: 'images/web/work_04.jpg',
+        description: 'ダンサーのアーティスト写真シリーズ。Canon R5 + GMレンズ使用。',
+        size: 'medium',
+      },
+      {
+        id: 'hatachi-01',
+        title: '平成たち祭 — From ハタチたち',
+        category: 'Documentary',
+        client: 'ハタチたち',
+        year: '2023',
+        thumbnail: 'images/web/work_12.jpg',
+        youtubeId: '',
+        description: 'Coming Soon',
+        size: 'large',
+      },
+      {
+        id: 'dfc-doc-01',
+        title: 'ダンスでチャリティー',
+        category: 'Documentary',
+        client: 'Dance for Charity',
+        year: '2023',
+        thumbnail: 'images/web/work_08.jpg',
+        youtubeId: '',
+        description: 'Coming Soon',
+        size: 'medium',
+      },
+    ];
+
+    // ─── WORKS RENDER ───
+    let activeCategory = 'All';
+    const worksGrid = document.getElementById('worksGrid');
+    const modal     = document.getElementById('workModal');
+    const modalClose = document.getElementById('modalClose');
+
+    function renderWorks() {
+      const filtered = activeCategory === 'All'
+        ? WORKS
+        : WORKS.filter(w => w.category === activeCategory);
+
+      worksGrid.innerHTML = filtered.map(work => `
+        <div class="work-item ${work.size}" data-id="${work.id}">
+          <div class="work-thumb ${work.size}">
+            <img src="${work.thumbnail}" alt="${work.title}" loading="lazy">
+            <div class="work-overlay">
+              <div class="play-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  ${work.youtubeId || work.vimeoId
+                    ? '<polygon points="5,3 19,12 5,21"/>'
+                    : '<rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>'}
+                </svg>
+              </div>
+              <span class="play-label">${work.youtubeId || work.vimeoId ? 'Play' : 'View'}</span>
+            </div>
+            <span class="category-badge">${work.category}</span>
+            <div class="gold-corner"></div>
+          </div>
+          <div class="work-meta">
+            <p class="work-meta-title">${work.title}</p>
+            <p class="work-meta-sub">${work.client} — ${work.year}</p>
+          </div>
+        </div>
+      `).join('');
+
+      worksGrid.querySelectorAll('.work-item').forEach(item => {
+        item.addEventListener('click', () => {
+          const work = WORKS.find(w => w.id === item.dataset.id);
+          if (work) openModal(work);
+        });
       });
+
+      if (window.gsap) {
+        gsap.fromTo(
+          worksGrid.querySelectorAll('.work-item'),
+          { y: 30, opacity: 0, scale: 0.97 },
+          { y: 0, opacity: 1, scale: 1, duration: 0.7, stagger: 0.08, ease: 'power3.out' }
+        );
+      }
+    }
+
+    // ─── MODAL ───
+    function openModal(work) {
+      document.getElementById('modalCategory').textContent = work.category;
+      document.getElementById('modalTitle').textContent = work.title;
+      document.getElementById('modalClient').textContent = `${work.client} — ${work.year}`;
+      document.getElementById('modalDescription').textContent = work.description;
+
+      const mediaEl = document.getElementById('modalMedia');
+      if (work.youtubeId) {
+        mediaEl.innerHTML = `<div class="video-wrapper"><iframe src="https://www.youtube.com/embed/${work.youtubeId}?autoplay=1" allowfullscreen allow="autoplay"></iframe></div>`;
+      } else if (work.vimeoId) {
+        mediaEl.innerHTML = `<div class="video-wrapper"><iframe src="https://player.vimeo.com/video/${work.vimeoId}?autoplay=1" allowfullscreen allow="autoplay"></iframe></div>`;
+      } else {
+        mediaEl.innerHTML = `<div class="video-wrapper"><img src="${work.thumbnail}" alt="${work.title}"></div>`;
+      }
+
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modal.classList.remove('open');
+      document.getElementById('modalMedia').innerHTML = '';
+      document.body.style.overflow = '';
+    }
+
+    modalClose.addEventListener('click', closeModal);
+    modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+    // ─── FILTER ───
+    document.getElementById('worksFilters').addEventListener('click', e => {
+      const tab = e.target.closest('.filter-tab');
+      if (!tab) return;
+      document.querySelectorAll('.filter-tab').forEach(b => b.classList.remove('active'));
+      tab.classList.add('active');
+      activeCategory = tab.dataset.category;
+      renderWorks();
     });
+
+    renderWorks();
+
+    // ─── GSAP SCROLL ANIMATIONS ───
+    if (window.gsap && window.ScrollTrigger) {
+      gsap.registerPlugin(ScrollTrigger);
+
+      gsap.fromTo(
+        '.works-title-line',
+        { y: 40, opacity: 0 },
+        {
+          y: 0, opacity: 1, duration: 1, stagger: 0.1, ease: 'power3.out',
+          scrollTrigger: { trigger: '.works-header', start: 'top 80%', toggleActions: 'play none none reverse' },
+        }
+      );
+
+      gsap.fromTo(
+        '.filter-tab',
+        { y: 20, opacity: 0 },
+        {
+          y: 0, opacity: 1, duration: 0.6, stagger: 0.06, ease: 'power3.out',
+          scrollTrigger: { trigger: '#worksFilters', start: 'top 85%', toggleActions: 'play none none reverse' },
+        }
+      );
+    }
 
     // Subtle nav background on scroll
     const nav = document.querySelector('nav');
