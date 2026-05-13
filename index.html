@@ -326,40 +326,50 @@
     .works-grid {
       display: grid;
       grid-template-columns: repeat(12, 1fr);
-      gap: 20px;
+      gap: 32px;
     }
 
-    .work-item { cursor: pointer; }
-    .work-item.large  { grid-column: span 7; }
-    .work-item.medium { grid-column: span 5; }
+    .work-item {
+      cursor: pointer;
+      transition: transform 0.3s;
+      text-decoration: none;
+      display: block;
+    }
+
+    .work-item:hover {
+      transform: translateY(-6px);
+    }
+
+    .work-item.large  { grid-column: span 6; }
+    .work-item.medium { grid-column: span 6; }
     .work-item.small  { grid-column: span 4; }
 
     .work-thumb {
       position: relative;
       overflow: hidden;
       background: var(--border);
+      aspect-ratio: 16/10;
     }
-
-    .work-thumb.large  { aspect-ratio: 16/10; }
-    .work-thumb.medium { aspect-ratio: 4/5; }
-    .work-thumb.small  { aspect-ratio: 1/1; }
 
     .work-thumb img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
-      transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      transition: transform 0.5s, filter 0.5s;
     }
 
-    .work-item:hover .work-thumb img { transform: scale(1.05); }
+    .work-item:hover .work-thumb img {
+      transform: scale(1.08);
+      filter: brightness(0.7);
+    }
 
     .work-overlay {
       position: absolute;
       inset: 0;
-      background: rgba(10, 10, 10, 0.6);
+      background: rgba(10, 10, 10, 0.5);
       opacity: 0;
-      transition: opacity 0.5s;
+      transition: opacity 0.3s;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -372,75 +382,92 @@
     .play-icon {
       width: 56px;
       height: 56px;
-      border: 1px solid rgba(200, 169, 110, 0.8);
+      border: 2px solid var(--accent);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       color: var(--accent);
-      opacity: 0;
-      transition: opacity 0.3s;
+      transition: transform 0.3s;
     }
 
-    .work-item:hover .play-icon { opacity: 1; }
+    .work-item:hover .play-icon {
+      transform: scale(1.1);
+    }
 
     .play-label {
-      font-size: 0.65rem;
-      letter-spacing: 0.22em;
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
       text-transform: uppercase;
       color: var(--accent);
-      opacity: 0;
-      transition: opacity 0.3s;
+      font-weight: 600;
     }
-
-    .work-item:hover .play-label { opacity: 1; }
 
     .category-badge {
       position: absolute;
-      top: 14px;
-      left: 14px;
-      font-size: 0.6rem;
-      letter-spacing: 0.18em;
+      top: 16px;
+      left: 16px;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--accent);
-      background: rgba(10, 10, 10, 0.8);
-      padding: 4px 10px;
-      border: 1px solid rgba(200, 169, 110, 0.3);
+      background: rgba(10, 10, 10, 0.9);
+      padding: 6px 14px;
+      border: 1px solid rgba(200, 169, 110, 0.4);
+      backdrop-filter: blur(4px);
     }
 
     .gold-corner {
       position: absolute;
-      bottom: 12px;
-      right: 12px;
-      width: 24px;
-      height: 24px;
-      border-right: 1px solid var(--accent);
-      border-bottom: 1px solid var(--accent);
+      bottom: 16px;
+      right: 16px;
+      width: 32px;
+      height: 32px;
+      border-right: 2px solid var(--accent);
+      border-bottom: 2px solid var(--accent);
       opacity: 0;
       transition: opacity 0.3s;
     }
 
-    .work-item:hover .gold-corner { opacity: 1; }
+    .work-item:hover .gold-corner { opacity: 0.8; }
 
     .work-meta {
-      padding: 14px 0 6px;
+      padding: 20px 0 8px;
     }
 
     .work-meta-title {
-      font-size: 0.9rem;
-      font-weight: 600;
+      font-size: 1.4rem;
+      font-weight: 700;
       color: var(--text);
-      letter-spacing: 0.02em;
-      margin-bottom: 4px;
+      letter-spacing: 0.01em;
+      margin-bottom: 8px;
       transition: color 0.3s;
+      line-height: 1.3;
     }
 
     .work-item:hover .work-meta-title { color: var(--accent); }
 
     .work-meta-sub {
-      font-size: 0.72rem;
+      font-size: 0.85rem;
       color: var(--text-muted);
       letter-spacing: 0.08em;
+    }
+
+    .coming-soon-badge {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(10, 10, 10, 0.85);
+      padding: 16px 32px;
+      border: 2px solid var(--accent);
+      backdrop-filter: blur(8px);
+      z-index: 2;
     }
 
     /* ─── MODAL ─── */
@@ -928,6 +955,7 @@
         youtubeId: '',
         description: 'ライブパフォーマンスの映像記録。Sony FX30 + DJI RS5使用。',
         size: 'medium',
+        detailPage: 'projects/hime-performance.html',
       },
       {
         id: 'artist-photo-01',
@@ -938,6 +966,7 @@
         thumbnail: 'images/web/work_04.jpg',
         description: 'ダンサーのアーティスト写真シリーズ。Canon R5 + GMレンズ使用。',
         size: 'medium',
+        detailPage: 'projects/artist-portrait.html',
       },
       {
         id: 'hatachi-01',
@@ -945,10 +974,11 @@
         category: 'Documentary',
         client: 'ハタチたち',
         year: '2023',
-        thumbnail: 'images/web/work_12.jpg',
+        thumbnail: 'images/web/coming_soon.svg',
         youtubeId: '',
         description: 'Coming Soon',
         size: 'large',
+        comingSoon: true,
       },
       {
         id: 'dfc-doc-01',
@@ -956,10 +986,11 @@
         category: 'Documentary',
         client: 'Dance for Charity',
         year: '2023',
-        thumbnail: 'images/web/work_08.jpg',
+        thumbnail: 'images/web/coming_soon.svg',
         youtubeId: '',
         description: 'Coming Soon',
         size: 'medium',
+        comingSoon: true,
       },
     ];
 
@@ -975,18 +1006,19 @@
         : WORKS.filter(w => w.category === activeCategory);
 
       worksGrid.innerHTML = filtered.map(work => `
-        <div class="work-item ${work.size}" data-id="${work.id}">
-          <div class="work-thumb ${work.size}">
+        <a href="${work.detailPage || '#'}" class="work-item ${work.size}" data-id="${work.id}" ${work.comingSoon ? 'onclick="return false;"' : ''}>
+          <div class="work-thumb">
             <img src="${work.thumbnail}" alt="${work.title}" loading="lazy">
+            ${work.comingSoon ? '<div class="coming-soon-badge">COMING SOON</div>' : ''}
             <div class="work-overlay">
               <div class="play-icon">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                  ${work.youtubeId || work.vimeoId
-                    ? '<polygon points="5,3 19,12 5,21"/>'
-                    : '<rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>'}
+                  ${work.comingSoon
+                    ? '<circle cx="12" cy="12" r="1"/><circle cx="12" cy="6" r="1"/><circle cx="12" cy="18" r="1"/>'
+                    : '<polygon points="5,3 19,12 5,21"/>'}
                 </svg>
               </div>
-              <span class="play-label">${work.youtubeId || work.vimeoId ? 'Play' : 'View'}</span>
+              <span class="play-label">${work.comingSoon ? '準備中' : 'View'}</span>
             </div>
             <span class="category-badge">${work.category}</span>
             <div class="gold-corner"></div>
@@ -995,15 +1027,8 @@
             <p class="work-meta-title">${work.title}</p>
             <p class="work-meta-sub">${work.client} — ${work.year}</p>
           </div>
-        </div>
+        </a>
       `).join('');
-
-      worksGrid.querySelectorAll('.work-item').forEach(item => {
-        item.addEventListener('click', () => {
-          const work = WORKS.find(w => w.id === item.dataset.id);
-          if (work) openModal(work);
-        });
-      });
 
       if (window.gsap) {
         gsap.fromTo(

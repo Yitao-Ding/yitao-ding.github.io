@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hi, Me:) — Performance Film | Yitao</title>
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #0a0a0a;
+      --surface: #111111;
+      --border: #1e1e1e;
+      --accent: #c8a96e;
+      --accent-dim: rgba(200, 169, 110, 0.15);
+      --text: #e8e8e8;
+      --text-muted: #666;
+      --text-dim: #999;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+      line-height: 1.6;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 48px;
+      background: linear-gradient(to bottom, rgba(10,10,10,0.95) 0%, transparent 100%);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .nav-logo {
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .back-link {
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: color 0.25s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .back-link:hover {
+      color: var(--accent);
+    }
+
+    /* ─── HERO ─── */
+    .project-hero {
+      padding: 140px 48px 80px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .project-category {
+      font-size: 0.72rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .project-title {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 24px;
+      color: #fff;
+    }
+
+    .project-meta {
+      display: flex;
+      gap: 48px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 48px;
+    }
+
+    .project-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .meta-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    .project-description {
+      max-width: 720px;
+      font-size: 1.05rem;
+      line-height: 1.9;
+      color: var(--text-dim);
+      margin-bottom: 64px;
+    }
+
+    /* ─── CONTENT ─── */
+    .project-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 48px 120px;
+    }
+
+    .content-section {
+      margin-bottom: 96px;
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 32px;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 60px;
+      height: 2px;
+      background: var(--accent);
+    }
+
+    .media-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 32px;
+      margin-bottom: 48px;
+    }
+
+    .media-item {
+      position: relative;
+      aspect-ratio: 16/10;
+      overflow: hidden;
+      background: var(--surface);
+    }
+
+    .media-item img,
+    .media-item video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .media-caption {
+      margin-top: 12px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    .full-width-media {
+      width: 100%;
+      margin-bottom: 48px;
+    }
+
+    .full-width-media img,
+    .full-width-media video {
+      width: 100%;
+      display: block;
+    }
+
+    .behind-the-scenes {
+      background: var(--surface);
+      padding: 48px;
+      border-left: 3px solid var(--accent);
+      margin-bottom: 48px;
+    }
+
+    .behind-the-scenes h3 {
+      font-size: 1.3rem;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+
+    .behind-the-scenes p {
+      font-size: 0.95rem;
+      line-height: 1.9;
+      color: var(--text-dim);
+      margin-bottom: 16px;
+    }
+
+    .tech-specs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 24px;
+      margin-top: 32px;
+    }
+
+    .spec-item {
+      padding: 20px;
+      background: rgba(200, 169, 110, 0.05);
+      border: 1px solid var(--border);
+    }
+
+    .spec-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .spec-value {
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      padding: 32px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-logo {
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .footer-copy {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      nav { padding: 20px 24px; }
+      .project-hero { padding: 120px 24px 60px; }
+      .project-content { padding: 0 24px 80px; }
+      .media-grid { grid-template-columns: 1fr; }
+      .behind-the-scenes { padding: 32px 24px; }
+      footer { flex-direction: column; gap: 12px; text-align: center; padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="../index.html" class="nav-logo">Yitao</a>
+    <a href="../index.html#works" class="back-link">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M10 3L5 8l5 5"/>
+      </svg>
+      Back to Works
+    </a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="project-hero">
+    <p class="project-category">Music Video</p>
+    <h1 class="project-title">Hi, Me:) — Performance Film</h1>
+
+    <div class="project-meta">
+      <div class="project-meta-item">
+        <span class="meta-label">Client</span>
+        <span>Hi, Me:)</span>
+      </div>
+      <div class="project-meta-item">
+        <span class="meta-label">Year</span>
+        <span>2023</span>
+      </div>
+      <div class="project-meta-item">
+        <span class="meta-label">Role</span>
+        <span>撮影・編集・カラーグレーディング</span>
+      </div>
+    </div>
+
+    <p class="project-description">
+      ダンスグループ「Hi, Me:)」のライブパフォーマンスを記録した映像作品。
+      エネルギッシュな動きと繊細な表情を捉えるため、Sony FX30とDJI RS5を使用し、
+      流れるようなカメラワークで撮影。カラーグレーディングでは、
+      ステージの照明を活かしながら、グループの世界観を表現しました。
+    </p>
+  </section>
+
+  <!-- CONTENT -->
+  <div class="project-content">
+
+    <!-- Main Video/Image -->
+    <div class="content-section">
+      <div class="full-width-media">
+        <img src="../images/web/work_02.jpg" alt="Hi, Me:) Performance">
+      </div>
+    </div>
+
+    <!-- Gallery -->
+    <div class="content-section">
+      <h2 class="section-title">作品ギャラリー</h2>
+      <div class="media-grid">
+        <div>
+          <div class="media-item">
+            <img src="../images/web/work_02.jpg" alt="Scene 1">
+          </div>
+          <p class="media-caption">オープニングシーン</p>
+        </div>
+        <div>
+          <div class="media-item">
+            <img src="../images/web/work_04.jpg" alt="Scene 2">
+          </div>
+          <p class="media-caption">ダイナミックな群舞</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Behind the Scenes -->
+    <div class="content-section">
+      <h2 class="section-title">制作の裏側</h2>
+      <div class="behind-the-scenes">
+        <h3>撮影アプローチ</h3>
+        <p>
+          このプロジェクトでは、ダンサーの動きを最大限に活かすため、
+          ジンバルを使用した流動的なカメラワークを採用しました。
+          リハーサルから本番まで複数回の撮影を行い、
+          最も良いテイクを選定しています。
+        </p>
+        <p>
+          照明は既存のステージライトを活用しつつ、
+          必要に応じて補助光を追加。
+          カラーグレーディングでは、暖色系のトーンを強調し、
+          エネルギッシュでありながら温かみのある雰囲気を作り出しました。
+        </p>
+
+        <div class="tech-specs">
+          <div class="spec-item">
+            <div class="spec-label">Camera</div>
+            <div class="spec-value">Sony FX30</div>
+          </div>
+          <div class="spec-item">
+            <div class="spec-label">Stabilizer</div>
+            <div class="spec-value">DJI RS5</div>
+          </div>
+          <div class="spec-item">
+            <div class="spec-label">Resolution</div>
+            <div class="spec-value">4K 24fps</div>
+          </div>
+          <div class="spec-item">
+            <div class="spec-label">Color Grading</div>
+            <div class="spec-value">DaVinci Resolve</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-logo">Yitao</span>
+    <span class="footer-copy">&copy; 2026 Yitao. All rights reserved.</span>
+  </footer>
+
+</body>
+</html>
