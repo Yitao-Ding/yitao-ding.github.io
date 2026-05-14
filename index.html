@@ -179,7 +179,7 @@
     }
 
     h1 span {
-      color: var(--accent);
+      color: #fff;
       display: block;
     }
 
@@ -672,6 +672,82 @@
       margin-top: 4px;
     }
 
+    /* ─── EQUIPMENT ─── */
+    #equipment {
+      background: var(--bg);
+      position: relative;
+    }
+
+    .equipment-header {
+      margin-bottom: 64px;
+      max-width: 720px;
+    }
+
+    .equipment-sub {
+      color: var(--text-dim);
+      font-size: 0.92rem;
+      line-height: 1.9;
+      margin-top: -32px;
+      margin-bottom: 0;
+    }
+
+    .equipment-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px 48px;
+    }
+
+    .equipment-category {
+      border-top: 1px solid var(--border);
+      padding-top: 24px;
+    }
+
+    .equipment-cat-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+
+    .equipment-cat-num {
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    .equipment-list {
+      list-style: none;
+    }
+
+    .equipment-list li {
+      font-size: 0.9rem;
+      color: var(--text-dim);
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      letter-spacing: 0.01em;
+      display: flex;
+      gap: 14px;
+      align-items: baseline;
+      line-height: 1.4;
+    }
+
+    .equipment-list li:last-child {
+      border-bottom: none;
+    }
+
+    .equipment-brand {
+      color: var(--text);
+      font-weight: 700;
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      min-width: 68px;
+      flex-shrink: 0;
+    }
+
     /* ─── CONTACT ─── */
     #contact {
       background: var(--surface);
@@ -784,6 +860,8 @@
         gap: 48px;
       }
 
+      .equipment-grid { gap: 16px 32px; }
+
       footer { flex-direction: column; gap: 12px; text-align: center; padding: 24px; }
     }
 
@@ -803,6 +881,7 @@
     <ul class="nav-links">
       <li><a href="#works">Works</a></li>
       <li><a href="#about">About</a></li>
+      <li><a href="#equipment">Gear</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
@@ -894,6 +973,91 @@
     </div>
   </section>
 
+  <!-- EQUIPMENT -->
+  <section id="equipment">
+    <div class="equipment-header">
+      <p class="section-label">Gear</p>
+      <h2>Equipment</h2>
+      <p class="equipment-sub">
+        ダンスの一瞬を逃さない動体性能と、肌・衣装・空気感まで再現するカラーサイエンス。<br>
+        Sony / Canon の2系統を案件特性に合わせて使い分けています。
+      </p>
+    </div>
+
+    <div class="equipment-grid">
+
+      <div class="equipment-category">
+        <p class="equipment-cat-label"><span class="equipment-cat-num">01</span> Cinema / Camera</p>
+        <ul class="equipment-list">
+          <li><span class="equipment-brand">Sony</span>FX30 — 4K 120fps Super 35mm シネマカメラ</li>
+          <li><span class="equipment-brand">Canon</span>EOS R5 — 8K RAW / 高解像度フルサイズ</li>
+        </ul>
+      </div>
+
+      <div class="equipment-category">
+        <p class="equipment-cat-label"><span class="equipment-cat-num">02</span> Lens</p>
+        <ul class="equipment-list">
+          <li><span class="equipment-brand">Sony</span>FE 24-70mm F2.8 GM II</li>
+          <li><span class="equipment-brand">Sony</span>FE 70-200mm F2.8 GM II</li>
+          <li><span class="equipment-brand">Sony</span>FE 35mm F1.4 GM</li>
+          <li><span class="equipment-brand">Canon</span>RF 24-70mm F2.8L IS USM</li>
+          <li><span class="equipment-brand">Canon</span>RF 85mm F1.2L USM</li>
+        </ul>
+      </div>
+
+      <div class="equipment-category">
+        <p class="equipment-cat-label"><span class="equipment-cat-num">03</span> Stabilizer</p>
+        <ul class="equipment-list">
+          <li><span class="equipment-brand">DJI</span>RS 5 — プロ仕様3軸ジンバル</li>
+          <li><span class="equipment-brand">SmallRig</span>カメラケージ / フォローフォーカス</li>
+        </ul>
+      </div>
+
+      <div class="equipment-category">
+        <p class="equipment-cat-label"><span class="equipment-cat-num">04</span> Audio</p>
+        <ul class="equipment-list">
+          <li><span class="equipment-brand">RØDE</span>Wireless GO II — デュアルチャンネル</li>
+          <li><span class="equipment-brand">RØDE</span>VideoMic NTG</li>
+        </ul>
+      </div>
+
+      <div class="equipment-category">
+        <p class="equipment-cat-label"><span class="equipment-cat-num">05</span> Lighting</p>
+        <ul class="equipment-list">
+          <li><span class="equipment-brand">Aputure</span>Amaran 200x S — Bi-Color LED</li>
+          <li><span class="equipment-brand">Godox</span>SL-60W — コンスタント照明</li>
+          <li><span class="equipment-brand">Aputure</span>MC RGBWW — オンセット小型LED</li>
+        </ul>
+      </div>
+
+      <div class="equipment-category">
+        <p class="equipment-cat-label"><span class="equipment-cat-num">06</span> Drone</p>
+        <ul class="equipment-list">
+          <li><span class="equipment-brand">DJI</span>Mini 4 Pro — 4K HDR / 国内規制対応</li>
+        </ul>
+      </div>
+
+      <div class="equipment-category">
+        <p class="equipment-cat-label"><span class="equipment-cat-num">07</span> Storage / Workstation</p>
+        <ul class="equipment-list">
+          <li><span class="equipment-brand">Apple</span>MacBook Pro M3 Max</li>
+          <li><span class="equipment-brand">SanDisk</span>CFexpress Type B / SDXC V90</li>
+          <li><span class="equipment-brand">LaCie</span>Rugged SSD Pro — 現場バックアップ</li>
+        </ul>
+      </div>
+
+      <div class="equipment-category">
+        <p class="equipment-cat-label"><span class="equipment-cat-num">08</span> Editing / Color</p>
+        <ul class="equipment-list">
+          <li><span class="equipment-brand">DaVinci</span>Resolve Studio — グレーディング主軸</li>
+          <li><span class="equipment-brand">Adobe</span>Premiere Pro / After Effects</li>
+          <li><span class="equipment-brand">Adobe</span>Lightroom / Photoshop</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
   <!-- CONTACT -->
   <section id="contact">
     <p class="section-label">Get in touch</p>
@@ -967,6 +1131,39 @@
         description: 'ダンサーのアーティスト写真シリーズ。Canon R5 + GMレンズ使用。',
         size: 'medium',
         detailPage: 'projects/artist-portrait.html',
+      },
+      {
+        id: 'hime-mv-atatame',
+        title: '「あたためますか？」/「ずっと」aiko',
+        category: 'Music Video',
+        client: 'Hi,Me:)',
+        year: '2025',
+        thumbnail: 'https://img.youtube.com/vi/1tcuk5lkres/maxresdefault.jpg',
+        youtubeId: '1tcuk5lkres',
+        description: 'Hi,Me:)によるダンスパフォーマンス映像。Sony FX30 / DaVinci Resolve によるカラーグレーディング。',
+        size: 'small',
+      },
+      {
+        id: 'hime-mv-kagami',
+        title: '『鏡に恋してる』/ "鏡に恋して"礼賛',
+        category: 'Music Video',
+        client: 'Hi,Me:)',
+        year: '2025',
+        thumbnail: 'https://img.youtube.com/vi/iZmdtR8Co74/maxresdefault.jpg',
+        youtubeId: 'iZmdtR8Co74',
+        description: 'Hi,Me:)によるダンスパフォーマンス映像。照明・カラーグレーディングにこだわった作品。',
+        size: 'small',
+      },
+      {
+        id: 'hime-mv-kodama',
+        title: '「こだま」/ "- kodama -" Yullie-Echo',
+        category: 'Music Video',
+        client: 'Hi,Me:)',
+        year: '2025',
+        thumbnail: 'https://img.youtube.com/vi/2Z2tjXXt5Ew/maxresdefault.jpg',
+        youtubeId: '2Z2tjXXt5Ew',
+        description: 'Hi,Me:)によるダンスパフォーマンス映像。Yullie-Echoの楽曲に合わせた幻想的な映像表現。',
+        size: 'small',
       },
       {
         id: 'hatachi-01',
@@ -1068,6 +1265,17 @@
     modalClose.addEventListener('click', closeModal);
     modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+    // ─── MODAL OPEN (YouTube items) ───
+    worksGrid.addEventListener('click', e => {
+      const item = e.target.closest('.work-item');
+      if (!item) return;
+      const work = WORKS.find(w => w.id === item.dataset.id);
+      if (work && work.youtubeId && !work.comingSoon) {
+        e.preventDefault();
+        openModal(work);
+      }
+    });
 
     // ─── FILTER ───
     document.getElementById('worksFilters').addEventListener('click', e => {
